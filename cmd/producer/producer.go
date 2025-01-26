@@ -3,9 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/sudo-abhinav/models"
-	"golang.org/x/net/context"
 	"net/http"
 	"strconv"
 )
@@ -18,16 +16,16 @@ const (
 
 var ErrUserNotFoundInProducer = errors.New("user not found")
 
-func findUserByID(id int, users []models.User) (models.User, error) {
+func FindUserByID(id int, users []models.User) (models.User, error) {
 	for _, user := range users {
-		if user.ID == id {
+		if user.Id == id {
 			return user, nil
 		}
 	}
 	return models.User{}, ErrUserNotFoundInProducer
 }
 
-func getIDFromRequest(r *http.Request, key string) (int, error) {
+func GetIDFromRequest(r *http.Request, key string) (int, error) {
 	idStr := r.FormValue(key)
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
