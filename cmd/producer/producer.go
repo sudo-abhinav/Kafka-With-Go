@@ -3,13 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/sudo-abhinav/models"
+	"github.com/sudo-abhinav/cmd/models"
 	"net/http"
 	"strconv"
 )
 
 const (
-	ProducerPort       = ":8080"
+	ProducerPort       = ":8088"
 	KafkaServerAddress = "localhost:9092"
 	KafkaTopic         = "notification"
 )
@@ -28,7 +28,9 @@ func FindUserByID(id int, users []models.User) (models.User, error) {
 func GetIDFromRequest(r *http.Request, key string) (int, error) {
 	idStr := r.FormValue(key)
 	id, err := strconv.Atoi(idStr)
+
 	if err != nil {
+
 		return 0, fmt.Errorf("failed to parse ID from form value %s: %w", key, err)
 	}
 	return id, nil
